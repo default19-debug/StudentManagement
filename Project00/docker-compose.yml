@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  db:
+    #  use the alpine version because it is extremely lightweight
+    image: postgres:15-alpine
+    container_name: mvc_postgres_db
+    # This prevents crash loops if restarts
+    restart: always
+    environment:
+      # These are the credentials your Java code will use to log in
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: 24112007
+      POSTGRES_DB: practice00_DB
+    ports:
+      # Maps Docker's internal port 5432 to your Mac's port 5432
+      - "5432:5432"
+    volumes:
+      # This ensures your data isn't deleted if the container stops
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
